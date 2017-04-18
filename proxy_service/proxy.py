@@ -17,8 +17,8 @@ class Proxy:
             'https': "socks5://{host}:{port}".format(host=self.host, port=self.port),
         }
         try:
-            requests.get('http://httpbin.org/ip', proxies=proxies, headers=Proxy.header, timeout=4).json()
-            return True
+            resp = requests.get('http://httpbin.org/ip', proxies=proxies, headers=Proxy.header, timeout=4).json()
+            return True if resp.get('origin') == self.host else False
         except requests.Timeout:
             return False
         except:
