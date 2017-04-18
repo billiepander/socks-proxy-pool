@@ -1,5 +1,5 @@
 import requests
-from .redis_connection import redis_conn
+from proxy_service.redis_connection import redis_conn
 
 
 class Proxy:
@@ -26,13 +26,14 @@ class Proxy:
             return False
 
     def ready_into_pool(self):
-        # failed_proxies does not mean its not valid, but maybe your target web blocked this ip
-        check_list = [
+        # anyitem in should_fail_list return True means the proxy cannot join pool
+        should_fail_list = [
             redis_conn.sismember('failed_proxies', self.host),
+            # failed_proxies does not mean its not valid, but maybe your target web blocked this ip
             redis_conn.sismember('existed_proxies', self.host)
             # add your custom check here
         ]
-        return True if all(check_list) else False
+        return False if any(should_fail_list) else True
 
     def add_to_pool(self):
         if self.check_valid() and self.ready_into_pool():
