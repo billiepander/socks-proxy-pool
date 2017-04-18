@@ -1,5 +1,5 @@
 import requests
-from proxy_service.redis_connection import redis_conn
+from redis_connection import redis_conn
 
 
 class Proxy:

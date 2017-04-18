@@ -9,5 +9,8 @@ def send_wechat_reminder(ak, bk, ck, dk):
     params = {
         'k1': ak, 'k2': bk, 'k3': ck, 'k4': dk
     }
-    requests.get(service_url, params=params)
+    try:
+        requests.get(service_url, params=params)
+    except:
+        pass
     # should do some error check here

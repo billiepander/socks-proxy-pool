@@ -9,9 +9,9 @@ from xmlrpc.server import SimpleXMLRPCServer
 from collections import namedtuple
 import schedule
 
-from proxy_service.helpers import send_wechat_reminder
-from proxy_service.proxy import Proxy
-from proxy_service.redis_connection import redis_conn
+from helpers import send_wechat_reminder
+from proxy import Proxy
+from redis_connection import redis_conn
 
 logging.basicConfig(level=logging.INFO)
 
